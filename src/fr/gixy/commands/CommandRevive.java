@@ -27,32 +27,34 @@ public class CommandRevive implements CommandExecutor {
 
         if (sender instanceof Player) {
             Player player = (Player) sender;
-            if (args.length == 1) {
-                Player target = Bukkit.getPlayer((args[0]));
-                if (args[0].equalsIgnoreCase(target.getName())) {
-                    if(target.getName() == null){
-                        player.sendMessage("§cCe joueur est déconnecté ou il n'existe pas !");
-                        return true;
-                    }
-                    if (!main.getPlayers().contains(target.getUniqueId())) {
-                        main.getPlayers().add(target.getUniqueId());
-                        main.getSpectators().remove(target.getUniqueId());
-                        target.setGameMode(GameMode.SURVIVAL);
-                        for(Player players : Bukkit.getOnlinePlayers()){
-                            players.sendMessage(main.getPrefix()+ ChatColor.GREEN+target.getName()+" §ea été revive");
+            if (player.isOp()) {
+                if (args.length == 1) {
+                    Player target = Bukkit.getPlayer((args[0]));
+                    if (args[0].equalsIgnoreCase(target.getName())) {
+                        if (target.getName() == null) {
+                            player.sendMessage("§cCe joueur est déconnecté ou il n'existe pas !");
+                            return true;
                         }
-                        target.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 15, 255, false, false));
-                        Location location = new Location(Bukkit.getWorld("world"), 100, 100, 100);
-                        target.teleport(location);
+                        if (!main.getPlayers().contains(target.getUniqueId())) {
+                            main.getPlayers().add(target.getUniqueId());
+                            main.getSpectators().remove(target.getUniqueId());
+                            target.setGameMode(GameMode.SURVIVAL);
+                            for (Player players : Bukkit.getOnlinePlayers()) {
+                                players.sendMessage(main.getPrefix() + ChatColor.GREEN + target.getName() + " §ea été revive");
+                            }
+                            target.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 15, 255, false, false));
+                            Location location = new Location(Bukkit.getWorld("world"), 100, 100, 100);
+                            target.teleport(location);
+
+                        } else {
+                            player.sendMessage("§cCe joueur n'est pas mort");
+                        }
+
 
                     } else {
-                        player.sendMessage("§cCe joueur n'est pas mort");
+                        player.sendMessage("§cCommande incorrect : §f /revive pseudo");
+                        return true;
                     }
-
-
-                } else {
-                    player.sendMessage("§cCommande incorrect : §f /revive pseudo");
-                    return true;
                 }
             }
         }

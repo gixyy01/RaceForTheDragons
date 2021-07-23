@@ -35,7 +35,7 @@ public class ChatListener implements Listener {
                 }
             }
         }else{
-            event.setFormat(ChatColor.GRAY+player.getName()+"» "+event.getMessage());
+            event.setFormat(ChatColor.WHITE+player.getName()+" » "+event.getMessage());
         }
     }
 }

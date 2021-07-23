@@ -2,6 +2,7 @@ package fr.gixy.commands;
 
 import fr.gixy.Main;
 import fr.gixy.State;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -38,9 +39,13 @@ public class CommandTemple implements CommandExecutor {
                     main.setCanStart(true);
                 }else{
                     player.sendMessage("§cVous n'avez pas les permissions de faire cette commande");
+                    player.playSound(player.getLocation(), Sound.VILLAGER_HAGGLE, 1f, 1f);
+
                 }
             }else{
                 player.sendMessage("§cCommande impossible en jeu");
+                player.playSound(player.getLocation(), Sound.VILLAGER_HAGGLE, 1f, 1f);
+
             }
         }
         return false;

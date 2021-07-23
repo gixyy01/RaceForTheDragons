@@ -1,5 +1,6 @@
 package fr.gixy;
 
+import fr.gixy.commands.CommandHeal;
 import fr.gixy.commands.CommandRevive;
 import fr.gixy.commands.CommandTemple;
 import fr.gixy.gui.GUIManager;
@@ -63,8 +64,9 @@ public class Main extends JavaPlugin {
         pm.registerEvents(new NetherListener(this), this);
         pm.registerEvents(new FoodLevelListener(this),this);
 
-        getCommand("temple").setExecutor(new CommandTemple(this));
+        getCommand("setTemple").setExecutor(new CommandTemple(this));
         getCommand("revive").setExecutor(new CommandRevive(this));
+        getCommand("heal").setExecutor(new CommandHeal(this));
 
     }
 

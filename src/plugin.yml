@@ -3,5 +3,6 @@ author: Gixy
 version: 1.0.0
 main: fr.gixy.Main
 commands:
-  temple:
+  setTemple:
   revive:
+  heal:
