@@ -45,5 +45,4 @@ public class CommandTemple implements CommandExecutor {
         }
         return false;
     }
-
 }

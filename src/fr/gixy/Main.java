@@ -23,7 +23,7 @@ public class Main extends JavaPlugin {
     private boolean nether;
     private State state;
     private Damage damage;
-    private String prefix = "§f[§6RACE FOR THE DRAGON§f] ";
+    private final String prefix = "§f[§6RACE FOR THE DRAGON§f] ";
     private int x;
     private int y;
     private int z;
@@ -33,11 +33,14 @@ public class Main extends JavaPlugin {
     public void onEnable() {
 
         setState(State.WAITING);
-        canStart = false;
-        nether = true;
-        new GUIManager(this);
-        setDamage(Damage.FALSE);
 
+        canStart = false;
+
+        nether = true;
+
+        new GUIManager(this);
+
+        setDamage(Damage.FALSE);
 
         this.scoreboard = new RFTDScoreboard();
         for (World worlds : Bukkit.getWorlds()) {
@@ -46,18 +49,16 @@ public class Main extends JavaPlugin {
             worlds.setGameRuleValue("naturalRegeneration", "false");
 
         }
-
-
         PluginManager pm = getServer().getPluginManager();
 
         pm.registerEvents(new PlayerJoin(this), this);
         pm.registerEvents(new PlayerQuit(this), this);
         pm.registerEvents(new DamageListener(this), this);
         pm.registerEvents(new WorldEvent(this), this);
-        pm.registerEvents(new CheckWin(this),this);
-        pm.registerEvents(new ConfigInteractGUI(this),this);
-        pm.registerEvents(new PlayerDeath(this),this);
-        pm.registerEvents(new ChatListener(this),this);
+        pm.registerEvents(new CheckWin(this), this);
+        pm.registerEvents(new ConfigInteractGUI(this), this);
+        pm.registerEvents(new PlayerDeath(this), this);
+        pm.registerEvents(new ChatListener(this), this);
 
         getCommand("temple").setExecutor(new CommandTemple(this));
         getCommand("revive").setExecutor(new CommandRevive(this));
@@ -68,13 +69,7 @@ public class Main extends JavaPlugin {
     @Override
     public void onDisable() {
         this.getScoreboard().onDisable();
-
-
-
-
     }
-
-
     public State getState() {
         return state;
     }
@@ -89,21 +84,6 @@ public class Main extends JavaPlugin {
 
     public List<UUID> getPlayers() {
         return players;
-    }
-
-    public void eliminate(Player player) {
-
-        if (players.contains(player.getUniqueId())) players.remove(player.getUniqueId());
-        player.setGameMode(GameMode.SPECTATOR);
-    }
-
-    public void checkNoWin(){
-        if(players.size() == 0){
-            for(Player players : Bukkit.getOnlinePlayers()){
-                players.sendMessage(getPrefix()+"§aPersonne a gagné !");
-                setState(State.FINISH);
-            }
-        }
     }
 
     public String getPrefix() {
@@ -140,7 +120,7 @@ public class Main extends JavaPlugin {
         this.z = z;
     }
 
-    public boolean isDamage(Damage damage){
+    public boolean isDamage(Damage damage) {
         return this.damage == damage;
     }
 
@@ -177,5 +157,20 @@ public class Main extends JavaPlugin {
 
     public ScoreboardAPI getScoreboard() {
         return scoreboard;
+    }
+
+    public void eliminate(Player player) {
+
+        if (players.contains(player.getUniqueId())) players.remove(player.getUniqueId());
+        player.setGameMode(GameMode.SPECTATOR);
+    }
+
+    public void checkNoWin() {
+        if (players.size() == 0) {
+            for (Player players : Bukkit.getOnlinePlayers()) {
+                players.sendMessage(getPrefix() + "§aPersonne a gagné !");
+                setState(State.FINISH);
+            }
+        }
     }
 }

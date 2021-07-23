@@ -30,17 +30,15 @@ public class CheckWin implements Listener {
         if (main.isState(State.PLAYING)) {
             if (block.getType().equals(Material.DRAGON_EGG)) {
                 if (block.getLocation().getBlockX() == main.getX() && block.getLocation().getBlockY() == main.getY() && block.getLocation().getBlockZ() == main.getZ()) {
-
                     main.setState(State.FINISH);
-                            for (Player players : Bukkit.getOnlinePlayers()) {
+                    for (Player players : Bukkit.getOnlinePlayers()) {
 
-                                players.sendMessage(main.getPrefix() + ChatColor.YELLOW + player.getName() + " §aremporte la partie !");
-                                players.teleport(player.getLocation());
-                                players.setAllowFlight(true);
-                            }
-                        }
-
+                        players.sendMessage(main.getPrefix() + ChatColor.YELLOW + player.getName() + " §aremporte la partie !");
+                        players.teleport(player.getLocation());
+                        players.setAllowFlight(true);
                     }
                 }
             }
         }
+    }
+}

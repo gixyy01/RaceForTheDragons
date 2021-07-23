@@ -2,13 +2,8 @@ package fr.gixy.gui;
 
 import fr.gixy.Main;
 import fr.gixy.task.Start;
-import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.World;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -45,7 +40,7 @@ public class ConfigGui extends GUI {
         nether.setItemMeta(netherM);
         super.setItem(13, nether, onClick -> {
 
-            if (main.isNether() == true) {
+            if (main.isNether()) {
                 boolean allowNether = Bukkit.getAllowNether();
                 allowNether = false;
                 main.setNether(false);

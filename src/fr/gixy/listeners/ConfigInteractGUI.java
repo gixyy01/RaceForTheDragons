@@ -11,7 +11,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class ConfigInteractGUI implements Listener {
 
-    private Main main;
+    private final Main main;
 
     public ConfigInteractGUI(Main main) {
 
@@ -23,20 +23,13 @@ public class ConfigInteractGUI implements Listener {
 
         Player player = event.getPlayer();
         ItemStack item = event.getItem();
-
         if (item == null) {
             return;
         }
-
         if (item.getType() == Material.REDSTONE_COMPARATOR) {
-
-            if (item.getItemMeta().getDisplayName() == "§6Configuration") {
-
+            if (item.getItemMeta().getDisplayName().equals("§6Configuration")) {
                 new ConfigGui(main).open(player);
             }
         }
-
     }
-
-
 }

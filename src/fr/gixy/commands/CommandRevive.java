@@ -1,7 +1,6 @@
 package fr.gixy.commands;
 
 import fr.gixy.Main;
-import fr.gixy.listeners.PlayerDeath;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -9,15 +8,13 @@ import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.libs.org.ibex.nestedvm.util.Platform;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 public class CommandRevive implements CommandExecutor {
 
-    private Main main;
-    private PlayerDeath playerDeath;
+    private final Main main;
 
 
     public CommandRevive(Main main) {
@@ -56,12 +53,8 @@ public class CommandRevive implements CommandExecutor {
                 } else {
                     player.sendMessage("§cCommande incorrect : §f /revive pseudo");
                     return true;
-
-
                 }
             }
-
-
         }
         return false;
     }

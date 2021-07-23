@@ -9,13 +9,12 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 public class PlayerQuit implements Listener {
 
-    private Main main;
+    private final Main main;
 
     public PlayerQuit(Main main) {
 
         this.main = main;
     }
-
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event){

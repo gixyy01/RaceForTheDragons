@@ -10,7 +10,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 
 public class DamageListener implements Listener {
 
-    private Main main;
+    private final Main main;
 
     public DamageListener(Main main) {
 
@@ -19,8 +19,6 @@ public class DamageListener implements Listener {
 
     @EventHandler
     public void onDamage(EntityDamageEvent event){
-
-        Player player =(Player) event.getEntity();
 
         if(main.isState(State.WAITING) || main.isState(State.STARTING)) event.setCancelled(true);
         if(main.isDamage(Damage.FALSE)){
