@@ -9,7 +9,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class GameLoop extends BukkitRunnable {
 
-    private Main main;
+    private final Main main;
     private static int timer = 0;
 
     public GameLoop(Main main) {
@@ -20,12 +20,7 @@ public class GameLoop extends BukkitRunnable {
     @Override
     public void run() {
 
-        // if(timer == 4){
-
-        //   main.checkwin();
-        // cancel();
-        //}
-
+        timer++;
 
         if (timer == 30) {
             for (Player players : Bukkit.getOnlinePlayers()) {
@@ -38,28 +33,14 @@ public class GameLoop extends BukkitRunnable {
 
         if (timer == 1200) {
             for (Player players : Bukkit.getOnlinePlayers()) {
-
                 players.sendMessage(main.getPrefix() + "§c PVP ACTIF !");
             }
 
             for (World world : Bukkit.getWorlds()) {
-
                 world.setPVP(true);
-
-
             }
         }
-
-
-
-
-
-
-
-
-        timer++;
     }
-
     public static int getTimer() {
 
         return timer;

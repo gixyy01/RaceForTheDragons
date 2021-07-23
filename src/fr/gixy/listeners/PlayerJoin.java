@@ -4,6 +4,7 @@ import fr.gixy.Main;
 import fr.gixy.State;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.Statistic;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -26,6 +27,7 @@ public class PlayerJoin implements Listener {
         Player player = event.getPlayer();
         event.setJoinMessage(main.getPrefix() + player.getName() + " §ea rejoint le serveur");
         main.getScoreboard().onJoin(player);
+        player.setStatistic(Statistic.PLAYER_KILLS,0);
 
         //Check if the game is already running
 
@@ -42,6 +44,8 @@ public class PlayerJoin implements Listener {
 
             main.getPlayers().add(player.getUniqueId());
             player.setGameMode(GameMode.ADVENTURE);
+            player.setHealth(20);
+            player.setFoodLevel(20);
             main.spawn(player);
             player.getInventory().clear();
             main.setAlive(true, player);

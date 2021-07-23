@@ -3,7 +3,6 @@ package fr.gixy.listeners;
 import fr.gixy.Damage;
 import fr.gixy.Main;
 import fr.gixy.State;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;

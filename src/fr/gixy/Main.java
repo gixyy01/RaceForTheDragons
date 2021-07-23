@@ -19,6 +19,7 @@ public class Main extends JavaPlugin {
 
     List<UUID> players = new ArrayList<>();
     List<UUID> spectators = new ArrayList<>();
+    List<UUID> winner = new ArrayList<>();
     private boolean canStart;
     private boolean nether;
     private State state;
@@ -42,7 +43,7 @@ public class Main extends JavaPlugin {
 
         setDamage(Damage.FALSE);
 
-        this.scoreboard = new RFTDScoreboard();
+        this.scoreboard = new RFTDScoreboard(this);
         for (World worlds : Bukkit.getWorlds()) {
 
             worlds.setDifficulty(Difficulty.HARD);
@@ -59,6 +60,8 @@ public class Main extends JavaPlugin {
         pm.registerEvents(new ConfigInteractGUI(this), this);
         pm.registerEvents(new PlayerDeath(this), this);
         pm.registerEvents(new ChatListener(this), this);
+        pm.registerEvents(new NetherListener(this), this);
+        pm.registerEvents(new FoodLevelListener(this),this);
 
         getCommand("temple").setExecutor(new CommandTemple(this));
         getCommand("revive").setExecutor(new CommandRevive(this));
@@ -70,6 +73,7 @@ public class Main extends JavaPlugin {
     public void onDisable() {
         this.getScoreboard().onDisable();
     }
+
     public State getState() {
         return state;
     }
@@ -172,5 +176,8 @@ public class Main extends JavaPlugin {
                 setState(State.FINISH);
             }
         }
+    }
+    public List<UUID> getWinner() {
+        return winner;
     }
 }

@@ -15,8 +15,7 @@ import java.util.Random;
 public class Start {
 
 
-
-    private Main main;
+    private final Main main;
 
     public Start(Main main) {
         this.main = main;
@@ -25,8 +24,7 @@ public class Start {
     public void start() {
 
 
-
-        if(main.isCanStart() == false){
+        if (!main.isCanStart()) {
 
             Bukkit.broadcastMessage("§cStart annulé, vous devez choisir un emplacement pour le temple avec la commande /temple");
             return;
@@ -62,6 +60,8 @@ public class Start {
                         players.sendTitle("§aBonne chance !", "");
                         main.setDamage(Damage.FALSE);
                         players.getInventory().clear();
+                        players.setHealth(20);
+                        players.setFoodLevel(20);
                         players.sendMessage(main.getPrefix() + "§aL'invulnérabilité prendra fin dans 30 secondes !");
                         main.setState(State.PLAYING);
 
