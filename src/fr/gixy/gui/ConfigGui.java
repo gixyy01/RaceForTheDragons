@@ -1,10 +1,12 @@
 package fr.gixy.gui;
 
 import fr.gixy.Main;
+import fr.gixy.scenario.ScenarioGUI;
 import fr.gixy.task.Start;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+
 import java.util.Arrays;
 
 public class ConfigGui extends GUI {
@@ -37,7 +39,7 @@ public class ConfigGui extends GUI {
         ItemStack nether = new ItemStack(Material.NETHERRACK);
         ItemMeta netherM = nether.getItemMeta();
         netherM.setDisplayName("§6Nether");
-        netherM.setLore(Arrays.asList("Statut : "+(main.isNether()?"activé" : "désactivé")));
+        netherM.setLore(Arrays.asList("Statut : " + (main.isNether() ? "§aactivé" : "§cdésactivé")));
         nether.setItemMeta(netherM);
         super.setItem(13, nether, onClick -> {
 
@@ -54,6 +56,18 @@ public class ConfigGui extends GUI {
 
 
         });
+
+        ItemStack scenario = new ItemStack(Material.ENCHANTED_BOOK);
+        ItemMeta scenarioM = scenario.getItemMeta();
+        scenarioM.setDisplayName("§6 Scénario");
+        scenario.setItemMeta(scenarioM);
+        super.setItem(10, scenario, onClick ->{
+
+            new ScenarioGUI(main).open(onClick.getPlayer());
+
+
+        });
+
     }
 
 

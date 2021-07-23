@@ -64,6 +64,10 @@ public class Start {
                         players.setFoodLevel(20);
                         players.sendMessage(main.getPrefix() + "§aL'invulnérabilité prendra fin dans 30 secondes !");
                         main.setState(State.PLAYING);
+                        Bukkit.broadcastMessage(main.getPrefix()+"§7Jour 1");
+                        for(Player players : Bukkit.getOnlinePlayers()){
+                            players.playSound(players.getLocation(), Sound.NOTE_PLING, 1f,1f);
+                        }
 
                         GameLoop loop = new GameLoop(main);
                         loop.runTaskTimer(main, 0, 20);

@@ -5,6 +5,7 @@ import fr.gixy.commands.CommandRevive;
 import fr.gixy.commands.CommandTemple;
 import fr.gixy.gui.GUIManager;
 import fr.gixy.listeners.*;
+import fr.gixy.scenario.CutClean;
 import fr.gixy.scoreboard.RFTDScoreboard;
 import fr.gixy.scoreboard.ScoreboardAPI;
 import org.bukkit.*;
@@ -23,6 +24,7 @@ public class Main extends JavaPlugin {
     List<UUID> winner = new ArrayList<>();
     private boolean canStart;
     private boolean nether;
+    private boolean cutClean;
     private State state;
     private Damage damage;
     private final String prefix = "§f[§6RACE FOR THE DRAGON§f] ";
@@ -63,6 +65,7 @@ public class Main extends JavaPlugin {
         pm.registerEvents(new ChatListener(this), this);
         pm.registerEvents(new NetherListener(this), this);
         pm.registerEvents(new FoodLevelListener(this),this);
+        pm.registerEvents(new CutClean(this),this);
 
         getCommand("setTemple").setExecutor(new CommandTemple(this));
         getCommand("revive").setExecutor(new CommandRevive(this));
@@ -181,5 +184,13 @@ public class Main extends JavaPlugin {
     }
     public List<UUID> getWinner() {
         return winner;
+    }
+
+    public boolean isCutClean() {
+        return cutClean;
+    }
+
+    public void setCutClean(boolean cutClean) {
+        this.cutClean = cutClean;
     }
 }
