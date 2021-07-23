@@ -30,20 +30,18 @@ public class ChatListener implements Listener {
         Player player = event.getPlayer();
 
 
-        if (main.isAlive(player,false)) {
-            player.sendMessage("§7[SPEC]" + ChatColor.GRAY + player.getName() + "§7: " + event.getMessage());
+        if (!main.isAlive(player)) {
+            event.setCancelled(true);
+            for (UUID playerId : main.getSpectators()) {
 
+                Player players = Bukkit.getPlayer(playerId);
+                if (players != null) {
+                    players.sendMessage("§7[SPEC]" + ChatColor.GRAY + player.getName() + "§7: " + event.getMessage());
+                }
+            }
 
         }else{
-            event.setCancelled(true);
+            event.setFormat(ChatColor.GRAY+player.getName()+"» "+event.getMessage());
         }
-
-
     }
-
-
 }
-
-
-
-

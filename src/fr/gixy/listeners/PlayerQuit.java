@@ -22,6 +22,7 @@ public class PlayerQuit implements Listener {
 
         Player player = event.getPlayer();
         event.setQuitMessage(main.getPrefix()+player.getName()+" §ea quitté le serveur");
+        main.getScoreboard().onQuit(player);
 
         if(main.isState(State.WAITING)){
             main.getPlayers().remove(player.getUniqueId());

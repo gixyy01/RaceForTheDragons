@@ -34,7 +34,7 @@ public class CommandTemple implements CommandExecutor {
                     main.setY(y);
                     main.setZ(z);
 
-                    player.sendMessage(main.getPrefix()+"§eLes coordonnés du temple sont " + x + " " + y + " " + z);
+                    player.sendMessage(main.getPrefix()+"§eLes coordonnées du temple sont " + x + " " + y + " " + z);
                     main.setCanStart(true);
                 }else{
                     player.sendMessage("§cVous n'avez pas les permissions de faire cette commande");

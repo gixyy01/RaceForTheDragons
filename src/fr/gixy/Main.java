@@ -4,7 +4,8 @@ import fr.gixy.commands.CommandRevive;
 import fr.gixy.commands.CommandTemple;
 import fr.gixy.gui.GUIManager;
 import fr.gixy.listeners.*;
-import net.minecraft.server.v1_8_R3.GameRules;
+import fr.gixy.scoreboard.RFTDScoreboard;
+import fr.gixy.scoreboard.ScoreboardAPI;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
@@ -19,21 +20,26 @@ public class Main extends JavaPlugin {
     List<UUID> players = new ArrayList<>();
     List<UUID> spectators = new ArrayList<>();
     private boolean canStart;
+    private boolean nether;
     private State state;
     private Damage damage;
     private String prefix = "§f[§6RACE FOR THE DRAGON§f] ";
     private int x;
     private int y;
     private int z;
+    private ScoreboardAPI scoreboard;
 
     @Override
     public void onEnable() {
 
         setState(State.WAITING);
         canStart = false;
+        nether = true;
         new GUIManager(this);
         setDamage(Damage.FALSE);
 
+
+        this.scoreboard = new RFTDScoreboard();
         for (World worlds : Bukkit.getWorlds()) {
 
             worlds.setDifficulty(Difficulty.HARD);
@@ -61,6 +67,11 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        this.getScoreboard().onDisable();
+
+
+
+
     }
 
 
@@ -141,8 +152,8 @@ public class Main extends JavaPlugin {
         return spectators;
     }
 
-    public boolean isAlive(Player player, boolean isAlive) {
-        return isAlive;
+    public boolean isAlive(Player player) {
+        return !this.spectators.contains(player.getUniqueId());
     }
 
     public void setAlive(boolean alive, Player player) {
@@ -155,7 +166,16 @@ public class Main extends JavaPlugin {
     public void setCanStart(boolean canStart) {
         this.canStart = canStart;
     }
+
+    public boolean isNether() {
+        return nether;
+    }
+
+    public void setNether(boolean nether) {
+        this.nether = nether;
+    }
+
+    public ScoreboardAPI getScoreboard() {
+        return scoreboard;
+    }
 }
-
-
-

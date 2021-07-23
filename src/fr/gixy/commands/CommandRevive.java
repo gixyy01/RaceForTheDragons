@@ -39,6 +39,7 @@ public class CommandRevive implements CommandExecutor {
                     }
                     if (!main.getPlayers().contains(target.getUniqueId())) {
                         main.getPlayers().add(target.getUniqueId());
+                        main.getSpectators().remove(target.getUniqueId());
                         target.setGameMode(GameMode.SURVIVAL);
                         for(Player players : Bukkit.getOnlinePlayers()){
                             players.sendMessage(main.getPrefix()+ ChatColor.GREEN+target.getName()+" §ea été revive");

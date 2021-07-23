@@ -25,6 +25,7 @@ public class PlayerJoin implements Listener {
 
         Player player = event.getPlayer();
         event.setJoinMessage(main.getPrefix()+player.getName()+" §ea rejoint le serveur");
+        main.getScoreboard().onJoin(player);
 
 
         //Check if the game is already running
