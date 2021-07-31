@@ -3,10 +3,7 @@ package fr.gixy.task;
 import fr.gixy.Damage;
 import fr.gixy.Main;
 import fr.gixy.State;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Sound;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -63,11 +60,15 @@ public class Start {
                         players.setHealth(20);
                         players.setFoodLevel(20);
                         players.sendMessage(main.getPrefix() + "§aL'invulnérabilité prendra fin dans 30 secondes !");
+                        players.playSound(players.getLocation(), Sound.NOTE_PLING, 1f, 1f);
+                        players.setGameMode(GameMode.SURVIVAL);
                         main.setState(State.PLAYING);
-                        Bukkit.broadcastMessage(main.getPrefix()+"§7Jour 1");
-                        for(Player players : Bukkit.getOnlinePlayers()){
-                            players.playSound(players.getLocation(), Sound.NOTE_PLING, 1f,1f);
+                        Bukkit.broadcastMessage(main.getPrefix() + "§7Jour 1");
+
+                        if (main.isGiveStuff()) {
+                            main.stuffGive(players);
                         }
+
 
                         GameLoop loop = new GameLoop(main);
                         loop.runTaskTimer(main, 0, 20);
@@ -76,9 +77,6 @@ public class Start {
                     }
                 }
             }.runTaskTimer(main, 0, 20);
-
-
         }
     }
 }
-

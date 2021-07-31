@@ -1,6 +1,7 @@
 package fr.gixy.commands;
 
 import fr.gixy.Main;
+import fr.gixy.State;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -27,6 +28,11 @@ public class CommandRevive implements CommandExecutor {
 
         if (sender instanceof Player) {
             Player player = (Player) sender;
+            if(main.isState(State.WAITING) || main.isState(State.FINISH)){
+                player.sendMessage("§cVous ne pouvez pas faire cette commande à ce moment de la partie !");
+                return true;
+            }
+
             if (player.isOp()) {
                 if (args.length == 1) {
                     Player target = Bukkit.getPlayer((args[0]));

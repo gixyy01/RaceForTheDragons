@@ -36,7 +36,7 @@ public class CheckWin implements Listener {
                         players.sendMessage(main.getPrefix() + ChatColor.YELLOW + player.getName() + " §aremporte la partie !");
                         players.teleport(player.getLocation());
                         players.setAllowFlight(true);
-                        players.sendTitle(ChatColor.GOLD+player.getName()+"","§egagne la partie !");
+                        players.sendTitle(ChatColor.GOLD + player.getName() + "", "§egagne la partie !");
                     }
                     main.getWinner().add(player.getUniqueId());
 

@@ -3,18 +3,15 @@ package fr.gixy.scenario;
 import fr.gixy.Main;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class CutClean implements Listener {
 
-    private Main main;
+    private final Main main;
 
     public CutClean(Main main) {
 
@@ -25,7 +22,7 @@ public class CutClean implements Listener {
     public void onspawn(ItemSpawnEvent event) {
         ItemStack item = event.getEntity().getItemStack();
 
-        if (main.isCutClean() == false) {
+        if (!main.isCutClean()) {
             return;
         } else {
             switch (item.getType()) {
@@ -60,13 +57,11 @@ public class CutClean implements Listener {
                     break;
             }
         }
-
     }
-
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
         Block block = event.getBlock();
-        if (main.isCutClean() == false) {
+        if (!main.isCutClean()) {
             return;
 
         } else {

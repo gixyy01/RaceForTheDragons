@@ -31,58 +31,71 @@ public class GameLoop extends BukkitRunnable {
             main.setDamage(Damage.TRUE);
 
         }
-        if (timer == 20*60) {
+
+        if (timer == main.getEndTimer() * 60) {
+            Bukkit.broadcastMessage(main.getPrefix() + "§e§lL'end est désormais activé !");
+            main.setEnd(true);
+        }
+
+        if (timer == main.getFinalHeal() * 60) {
+            for (Player players : Bukkit.getOnlinePlayers()) {
+                players.setHealth(20);
+                players.sendMessage(main.getPrefix() + "§dFinal Heal activé !");
+            }
+
+        }
+        if (timer == 20 * 60) {
             Bukkit.broadcastMessage(main.getPrefix() + "§7Jour 2");
-            for(Player players : Bukkit.getOnlinePlayers()){
-                players.playSound(players.getLocation(), Sound.NOTE_PLING, 1f,1f);
+            for (Player players : Bukkit.getOnlinePlayers()) {
+                players.playSound(players.getLocation(), Sound.NOTE_PLING, 1f, 1f);
             }
 
-        } else if (timer == 40*60) {
+        } else if (timer == 40 * 60) {
             Bukkit.broadcastMessage(main.getPrefix() + "§7Jour 3");
-            for(Player players : Bukkit.getOnlinePlayers()){
-                players.playSound(players.getLocation(), Sound.NOTE_PLING, 1f,1f);
+            for (Player players : Bukkit.getOnlinePlayers()) {
+                players.playSound(players.getLocation(), Sound.NOTE_PLING, 1f, 1f);
             }
 
 
-        }else if(timer == 60*60){
-            Bukkit.broadcastMessage(main.getPrefix()+"§7Jour 4");
-            for(Player players : Bukkit.getOnlinePlayers()){
-                players.playSound(players.getLocation(), Sound.NOTE_PLING, 1f,1f);
+        } else if (timer == 60 * 60) {
+            Bukkit.broadcastMessage(main.getPrefix() + "§7Jour 4");
+            for (Player players : Bukkit.getOnlinePlayers()) {
+                players.playSound(players.getLocation(), Sound.NOTE_PLING, 1f, 1f);
             }
-        }else if(timer == 80*60){
-            Bukkit.broadcastMessage(main.getPrefix()+"§7Jour 5");
-            for(Player players : Bukkit.getOnlinePlayers()){
-                players.playSound(players.getLocation(), Sound.NOTE_PLING, 1f,1f);
+        } else if (timer == 80 * 60) {
+            Bukkit.broadcastMessage(main.getPrefix() + "§7Jour 5");
+            for (Player players : Bukkit.getOnlinePlayers()) {
+                players.playSound(players.getLocation(), Sound.NOTE_PLING, 1f, 1f);
             }
-        }else if(timer == 100*60){
-            Bukkit.broadcastMessage(main.getPrefix()+"§7Jour 6");
-            for(Player players : Bukkit.getOnlinePlayers()){
-                players.playSound(players.getLocation(), Sound.NOTE_PLING, 1f,1f);
+        } else if (timer == 100 * 60) {
+            Bukkit.broadcastMessage(main.getPrefix() + "§7Jour 6");
+            for (Player players : Bukkit.getOnlinePlayers()) {
+                players.playSound(players.getLocation(), Sound.NOTE_PLING, 1f, 1f);
             }
-        }else if(timer == 120*60){
-            Bukkit.broadcastMessage(main.getPrefix()+"§7Jour 7");
-            for(Player players : Bukkit.getOnlinePlayers()){
-                players.playSound(players.getLocation(), Sound.NOTE_PLING, 1f,1f);
+        } else if (timer == 120 * 60) {
+            Bukkit.broadcastMessage(main.getPrefix() + "§7Jour 7");
+            for (Player players : Bukkit.getOnlinePlayers()) {
+                players.playSound(players.getLocation(), Sound.NOTE_PLING, 1f, 1f);
             }
-        }else if(timer == 140*60){
-            Bukkit.broadcastMessage(main.getPrefix()+"§7Jour 8");
-            for(Player players : Bukkit.getOnlinePlayers()){
-                players.playSound(players.getLocation(), Sound.NOTE_PLING, 1f,1f);
+        } else if (timer == 140 * 60) {
+            Bukkit.broadcastMessage(main.getPrefix() + "§7Jour 8");
+            for (Player players : Bukkit.getOnlinePlayers()) {
+                players.playSound(players.getLocation(), Sound.NOTE_PLING, 1f, 1f);
             }
-        }else if(timer == 160*60){
-            Bukkit.broadcastMessage(main.getPrefix()+"§7Jour 9");
-            for(Player players : Bukkit.getOnlinePlayers()){
-                players.playSound(players.getLocation(), Sound.NOTE_PLING, 1f,1f);
+        } else if (timer == 160 * 60) {
+            Bukkit.broadcastMessage(main.getPrefix() + "§7Jour 9");
+            for (Player players : Bukkit.getOnlinePlayers()) {
+                players.playSound(players.getLocation(), Sound.NOTE_PLING, 1f, 1f);
             }
-        }else if(timer == 180*60){
-            Bukkit.broadcastMessage(main.getPrefix()+"§7Jour 10");
-            for(Player players : Bukkit.getOnlinePlayers()){
-                players.playSound(players.getLocation(), Sound.NOTE_PLING, 1f,1f);
+        } else if (timer == 180 * 60) {
+            Bukkit.broadcastMessage(main.getPrefix() + "§7Jour 10");
+            for (Player players : Bukkit.getOnlinePlayers()) {
+                players.playSound(players.getLocation(), Sound.NOTE_PLING, 1f, 1f);
             }
-        }else if(timer == 200*60){
-            Bukkit.broadcastMessage(main.getPrefix()+"§7Jour 11");
-            for(Player players : Bukkit.getOnlinePlayers()){
-                players.playSound(players.getLocation(), Sound.NOTE_PLING, 1f,1f);
+        } else if (timer == 200 * 60) {
+            Bukkit.broadcastMessage(main.getPrefix() + "§7Jour 11");
+            for (Player players : Bukkit.getOnlinePlayers()) {
+                players.playSound(players.getLocation(), Sound.NOTE_PLING, 1f, 1f);
             }
         }
         if (timer == 60 * 20) {
@@ -95,6 +108,7 @@ public class GameLoop extends BukkitRunnable {
             }
         }
     }
+
     public static int getTimer() {
 
         return timer;

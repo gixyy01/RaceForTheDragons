@@ -10,7 +10,7 @@ import java.util.Arrays;
 
 public class ScenarioGUI extends GUI {
 
-    private Main main;
+    private final Main main;
 
     public ScenarioGUI(Main main) {
         super("§6Scénario", 6);
@@ -27,7 +27,7 @@ public class ScenarioGUI extends GUI {
         cutClean.setItemMeta(cutCleanM);
         super.setItem(0, cutClean, onClick -> {
 
-            if (main.isCutClean() == true) {
+            if (main.isCutClean()) {
                 main.setCutClean(false);
                 onClick.getPlayer().sendMessage("§cCut clean désactivé !");
             } else {
@@ -37,10 +37,24 @@ public class ScenarioGUI extends GUI {
 
             }
             super.updateItems();
-
-
         });
 
+        ItemStack stuff = new ItemStack(Material.IRON_CHESTPLATE);
+        ItemMeta stuffM = stuff.getItemMeta();
+        stuffM.setDisplayName("§6Stuff");
+        stuffM.setLore(Arrays.asList("Statut : " + (main.isGiveStuff() ? "§aactivé" : "§cdésactivé")));
+        stuff.setItemMeta(stuffM);
+        super.setItem(1, stuff, onClick -> {
 
+            if (main.isGiveStuff()) {
+                main.setGiveStuff(false);
+                onClick.getPlayer().sendMessage("§cStuff de départ désactivé !");
+
+            } else {
+                main.setGiveStuff(true);
+                onClick.getPlayer().sendMessage("§aStuff de départ activé !");
+            }
+            super.updateItems();
+        });
     }
 }

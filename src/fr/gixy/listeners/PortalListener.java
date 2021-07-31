@@ -8,11 +8,11 @@ import org.bukkit.event.player.PlayerPortalEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
 
-public class NetherListener implements Listener {
+public class PortalListener implements Listener {
 
     private final Main main;
 
-    public NetherListener(Main main) {
+    public PortalListener(Main main) {
 
         this.main = main;
     }
@@ -27,5 +27,12 @@ public class NetherListener implements Listener {
                 player.sendMessage(main.getPrefix() + "§cLe nether est désactivé !");
             }
         }
+        if(event.getCause().equals(PlayerTeleportEvent.TeleportCause.END_PORTAL)){
+            if(!main.isEnd()){
+                event.setCancelled(true);
+                player.sendMessage(main.getPrefix()+"§cL'end est désactivé pour le moment !");
+            }
+        }
+
     }
 }

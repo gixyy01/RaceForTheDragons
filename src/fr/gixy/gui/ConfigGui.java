@@ -4,14 +4,19 @@ import fr.gixy.Main;
 import fr.gixy.scenario.ScenarioGUI;
 import fr.gixy.task.Start;
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.potion.Potion;
+import org.bukkit.potion.PotionType;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 public class ConfigGui extends GUI {
 
     private final Main main;
+
 
     public ConfigGui(Main main) {
         super("Configuration", 6);
@@ -61,10 +66,59 @@ public class ConfigGui extends GUI {
         ItemMeta scenarioM = scenario.getItemMeta();
         scenarioM.setDisplayName("§6 Scénario");
         scenario.setItemMeta(scenarioM);
-        super.setItem(10, scenario, onClick ->{
+        super.setItem(10, scenario, onClick -> {
 
             new ScenarioGUI(main).open(onClick.getPlayer());
 
+
+        });
+
+        ItemStack end = new ItemStack(Material.ENDER_PORTAL_FRAME);
+        ItemMeta endM = end.getItemMeta();
+        endM.setDisplayName("§6Activation de l'end ");
+
+        endM.setLore(Collections.singletonList(("§a" + main.getEndTimer() + " §aminutes ")));
+        end.setItemMeta(endM);
+        super.setItem(16, end, onClick -> {
+
+
+            if (onClick.getEvent().getClick().isLeftClick()) {
+                main.setEndTimer(main.getEndTimer() + 5);
+            }
+
+            if (onClick.getEvent().getClick().isRightClick()) {
+                if (main.getEndTimer() != 5) {
+
+                    main.setEndTimer(main.getEndTimer() - 5);
+                }
+            }
+            super.updateItems();
+
+        });
+
+        ItemStack finalHeal = new ItemStack(Material.POTION, 1);
+        Potion pot = new Potion(1);
+        pot.setType(PotionType.REGEN);
+        pot.setSplash(true);
+        pot.apply(finalHeal);
+        ItemMeta finalHealM = finalHeal.getItemMeta();
+        finalHealM.setDisplayName("§dFinal Heal");
+        finalHealM.setLore(Collections.singletonList("§a" + main.getFinalHeal() + " §aminutes "));
+        finalHealM.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+        finalHeal.setItemMeta(finalHealM);
+        super.setItem(31, finalHeal, onClick ->{
+
+            if (onClick.getEvent().getClick().isLeftClick()) {
+                main.setFinalHeal(main.getFinalHeal() + 5);
+            }
+
+            if (onClick.getEvent().getClick().isRightClick()) {
+                if (main.getFinalHeal() != 5) {
+
+                    main.setFinalHeal(main.getFinalHeal() - 5);
+                }
+            }
+            super.updateItems();
 
         });
 

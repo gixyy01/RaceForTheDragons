@@ -10,6 +10,7 @@ import fr.gixy.scoreboard.RFTDScoreboard;
 import fr.gixy.scoreboard.ScoreboardAPI;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -24,13 +25,17 @@ public class Main extends JavaPlugin {
     List<UUID> winner = new ArrayList<>();
     private boolean canStart;
     private boolean nether;
+    private boolean end;
     private boolean cutClean;
+    private boolean giveStuff;
     private State state;
     private Damage damage;
     private final String prefix = "§f[§6RACE FOR THE DRAGON§f] ";
     private int x;
     private int y;
     private int z;
+    private int endTimer;
+    private int finalHeal;
     private ScoreboardAPI scoreboard;
 
     @Override
@@ -53,6 +58,9 @@ public class Main extends JavaPlugin {
             worlds.setGameRuleValue("naturalRegeneration", "false");
 
         }
+
+        endTimer = 20;
+        finalHeal = 20;
         PluginManager pm = getServer().getPluginManager();
 
         pm.registerEvents(new PlayerJoin(this), this);
@@ -63,9 +71,10 @@ public class Main extends JavaPlugin {
         pm.registerEvents(new ConfigInteractGUI(this), this);
         pm.registerEvents(new PlayerDeath(this), this);
         pm.registerEvents(new ChatListener(this), this);
-        pm.registerEvents(new NetherListener(this), this);
-        pm.registerEvents(new FoodLevelListener(this),this);
-        pm.registerEvents(new CutClean(this),this);
+        pm.registerEvents(new PortalListener(this), this);
+        pm.registerEvents(new FoodLevelListener(this), this);
+        pm.registerEvents(new CutClean(this), this);
+        pm.registerEvents(new BlockPlaceListener(this), this);
 
         getCommand("setTemple").setExecutor(new CommandTemple(this));
         getCommand("revive").setExecutor(new CommandRevive(this));
@@ -164,6 +173,14 @@ public class Main extends JavaPlugin {
         this.nether = nether;
     }
 
+    public boolean isEnd() {
+        return end;
+    }
+
+    public void setEnd(boolean end) {
+        this.end = end;
+    }
+
     public ScoreboardAPI getScoreboard() {
         return scoreboard;
     }
@@ -177,11 +194,13 @@ public class Main extends JavaPlugin {
     public void checkNoWin() {
         if (players.size() == 0) {
             for (Player players : Bukkit.getOnlinePlayers()) {
-                players.sendMessage(getPrefix() + "§aPersonne a gagné !");
+                players.sendMessage(this.getPrefix() + "§aPersonne a gagné !");
                 setState(State.FINISH);
+
             }
         }
     }
+
     public List<UUID> getWinner() {
         return winner;
     }
@@ -192,5 +211,39 @@ public class Main extends JavaPlugin {
 
     public void setCutClean(boolean cutClean) {
         this.cutClean = cutClean;
+    }
+
+    public int getEndTimer() {
+        return endTimer;
+    }
+
+    public void setEndTimer(int endTimer) {
+        this.endTimer = endTimer;
+    }
+
+    public int getFinalHeal() {
+        return finalHeal;
+    }
+
+    public void setFinalHeal(int finalHeal) {
+        this.finalHeal = finalHeal;
+    }
+
+    public boolean isGiveStuff() {
+        return giveStuff;
+    }
+
+    public void setGiveStuff(boolean giveStuff) {
+        this.giveStuff = giveStuff;
+    }
+
+    public void stuffGive(Player player) {
+
+        ItemStack book = new ItemStack(Material.BOOK, 3);
+        ItemStack axe = new ItemStack(Material.IRON_AXE);
+        ItemStack pickaxe = new ItemStack(Material.IRON_PICKAXE);
+        ItemStack beef = new ItemStack(Material.COOKED_BEEF, 64);
+        ItemStack water = new ItemStack(Material.WATER_BUCKET);
+        player.getInventory().addItem(book, axe, pickaxe, beef, water);
     }
 }
