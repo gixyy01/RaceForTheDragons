@@ -9,11 +9,11 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class CommandTemple implements CommandExecutor {
+public class CommandSetTemple implements CommandExecutor {
 
     private final Main main;
 
-    public CommandTemple(Main main) {
+    public CommandSetTemple(Main main) {
 
         this.main = main;
     }

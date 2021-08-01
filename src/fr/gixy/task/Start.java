@@ -23,7 +23,7 @@ public class Start {
 
         if (!main.isCanStart()) {
 
-            Bukkit.broadcastMessage("§cStart annulé, vous devez choisir un emplacement pour le temple avec la commande /temple");
+            Bukkit.broadcastMessage("§cStart annulé, vous devez choisir un emplacement pour le temple avec la commande /settemple");
             return;
 
         }
@@ -34,7 +34,7 @@ public class Start {
             new BukkitRunnable() {
 
                 int timer = 11;
-                int max = 50;
+                int max = main.getWorldBorderSize() / 2;
                 int x = new Random().nextInt(max);
                 int z = new Random().nextInt(max);
                 Location loc = new Location(players.getWorld(), x, 130, z);
@@ -64,6 +64,9 @@ public class Start {
                         players.setGameMode(GameMode.SURVIVAL);
                         main.setState(State.PLAYING);
                         Bukkit.broadcastMessage(main.getPrefix() + "§7Jour 1");
+                        for (World world : Bukkit.getWorlds()) {
+                            world.getWorldBorder().setSize(main.getWorldBorderSize());
+                        }
 
                         if (main.isGiveStuff()) {
                             main.stuffGive(players);

@@ -1,6 +1,7 @@
 package fr.gixy.gui;
 
 import fr.gixy.Main;
+import fr.gixy.State;
 import fr.gixy.scenario.ScenarioGUI;
 import fr.gixy.task.Start;
 import org.bukkit.Material;
@@ -32,6 +33,12 @@ public class ConfigGui extends GUI {
         startM.setDisplayName("§6Start");
         start.setItemMeta(startM);
         super.setItem(49, start, onClick -> {
+
+            if(main.isState(State.STARTING)){
+                onClick.getEvent().setCancelled(true);
+                onClick.getPlayer().sendMessage("§cDémarrage déjà en cours !");
+                return;
+            }
 
             Start gameStart = new Start(main);
 
@@ -106,7 +113,7 @@ public class ConfigGui extends GUI {
         finalHealM.setLore(Collections.singletonList("§a" + main.getFinalHeal() + " §aminutes "));
         finalHealM.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
         finalHeal.setItemMeta(finalHealM);
-        super.setItem(31, finalHeal, onClick ->{
+        super.setItem(31, finalHeal, onClick -> {
 
             if (onClick.getEvent().getClick().isLeftClick()) {
                 main.setFinalHeal(main.getFinalHeal() + 5);
@@ -122,7 +129,27 @@ public class ConfigGui extends GUI {
 
         });
 
+        ItemStack border = new ItemStack(Material.IRON_TRAPDOOR);
+        ItemMeta borderM = border.getItemMeta();
+        borderM.setDisplayName("§6Bordure");
+        borderM.setLore(Collections.singletonList("§a" + main.getWorldBorderSize() + " §ablocs "));
+        border.setItemMeta(borderM);
+        super.setItem(28, border, onClick -> {
+
+            if (onClick.getEvent().getClick().isLeftClick()) {
+                if (main.getWorldBorderSize() != 2000) {
+                    main.setWorldBorderSize(main.getWorldBorderSize() + 50);
+
+
+                }
+            }
+
+            if (onClick.getEvent().getClick().isRightClick()) {
+                if (main.getWorldBorderSize() != 50) {
+                    main.setWorldBorderSize(main.getWorldBorderSize() - 50);
+
+                }
+            }
+        });
     }
-
-
 }

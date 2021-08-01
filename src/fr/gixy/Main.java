@@ -2,7 +2,7 @@ package fr.gixy;
 
 import fr.gixy.commands.CommandHeal;
 import fr.gixy.commands.CommandRevive;
-import fr.gixy.commands.CommandTemple;
+import fr.gixy.commands.CommandSetTemple;
 import fr.gixy.gui.GUIManager;
 import fr.gixy.listeners.*;
 import fr.gixy.scenario.CutClean;
@@ -36,6 +36,7 @@ public class Main extends JavaPlugin {
     private int z;
     private int endTimer;
     private int finalHeal;
+    private int worldBorderSize;
     private ScoreboardAPI scoreboard;
 
     @Override
@@ -56,11 +57,13 @@ public class Main extends JavaPlugin {
 
             worlds.setDifficulty(Difficulty.HARD);
             worlds.setGameRuleValue("naturalRegeneration", "false");
+            worlds.getWorldBorder().reset();
 
         }
 
         endTimer = 20;
         finalHeal = 20;
+        worldBorderSize = 2000;
         PluginManager pm = getServer().getPluginManager();
 
         pm.registerEvents(new PlayerJoin(this), this);
@@ -74,9 +77,8 @@ public class Main extends JavaPlugin {
         pm.registerEvents(new PortalListener(this), this);
         pm.registerEvents(new FoodLevelListener(this), this);
         pm.registerEvents(new CutClean(this), this);
-        pm.registerEvents(new BlockPlaceListener(this), this);
 
-        getCommand("setTemple").setExecutor(new CommandTemple(this));
+        getCommand("setTemple").setExecutor(new CommandSetTemple(this));
         getCommand("revive").setExecutor(new CommandRevive(this));
         getCommand("heal").setExecutor(new CommandHeal(this));
 
@@ -245,5 +247,13 @@ public class Main extends JavaPlugin {
         ItemStack beef = new ItemStack(Material.COOKED_BEEF, 64);
         ItemStack water = new ItemStack(Material.WATER_BUCKET);
         player.getInventory().addItem(book, axe, pickaxe, beef, water);
+    }
+
+    public int getWorldBorderSize() {
+        return worldBorderSize;
+    }
+
+    public void setWorldBorderSize(int worldBorderSize) {
+        this.worldBorderSize = worldBorderSize;
     }
 }

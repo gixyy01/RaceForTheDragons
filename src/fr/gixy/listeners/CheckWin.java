@@ -40,6 +40,7 @@ public class CheckWin implements Listener {
                     }
                     main.getWinner().add(player.getUniqueId());
 
+
                 }
             }
         }
